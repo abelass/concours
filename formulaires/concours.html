@@ -1,0 +1,42 @@
+<div class="formulaire_spip formulaire_projets_concours ajax">
+
+	#SET{phase,#ENV{phase}}
+
+	[(#ENV{message_ok}|oui)#SET{phase,#ENV{message_ok}}]
+
+
+
+[(#GET{phase}|=={2}|ou{#GET{phase}|=={3}}|oui)
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	]
+[(#GET{phase}|=={2}|ou{#GET{phase}|=={3}}|non)
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+	]
+[(#ENV{editable})
+	<form action="#ENV{action}" method="post" id="code_form" class="phase_#GET{phase}">
+		<div>
+			#ACTION_FORMULAIRE{#ENV{action}}
+			
+			<ul>[(#SAISIE{hidden,phase,valeur=#GET{phase}})]	</ul>									
+			<INCLURE{fond=formulaires/inc-formulaire}{env}{phase=#GET{phase}}/>
+			[(#GET{phase}|=={1}|oui)
+				<div class="landing_page">
+					#CONFIG{concours/texte_landing_page}
+				</div>				
+				]
+
+			<p class="boutons"><input type="submit" class="submit" value="<:spip:bouton_valider:>" /></p>
+			]
+			
+
+		</div>
+	</form>
+	
+	[(#GET{phase}|=={2}|ou{#GET{phase}|=={3}}|oui)
+		<div class="explications">
+		<span>* - <:concours:champ_obligatoire:>, </span><span>** - <:concours:champ_obligatoire_dipsonible:></span>
+		</div>
+		]
+	
+	
+</div>

@@ -1,0 +1,459 @@
+<?php
+include_spip('base/abstract_sql');
+
+
+function definitions($use='',$valeurs=''){
+
+	//Définition des fieldset
+
+	$fieldsets=array(
+		0=>array(
+			'titre'=>_T('concours:infos_personelles'),
+			'id'=>'infos_personelles',
+			'phase'=>2
+			),
+		1=>array(
+			'titre'=>_T('concours:adresse'),
+			'id'=>'adresse',
+			'phase'=>2			
+			),	
+		2=>array(
+			'titre'=>_T('concours:contact'),
+			'id'=>'contact',
+			'phase'=>2			
+			),	
+		3=>array(
+			'titre'=>_T('concours:question'),
+			'id'=>'question_1',
+			'phase'=>3			
+			),							
+		);	
+		
+
+	//Définition des champs
+
+	$champs=array(	
+		'titre'=>array(
+			'valeur'=>$valeurs['titre'],
+			'fieldset'=>0,
+			'rang'=>50,
+			'form'=>array(
+				'field'=>'radio',
+				'name'=>'titre',
+				'label'=>_T('concours:titre'),
+				'obligatoire'=>'oui',
+				'datas'=>array(
+					'mr'=>_T('concours:mr'),
+					'mme'=>_T('concours:mme'),
+					'mlle'=>_T('concours:mlle'),									
+					)
+				)
+			),
+		'prenom'=>array(
+			'valeur'=> $valeurs['prenom'],
+			'fieldset'=>0,	
+			'rang'=>150,		
+			'form'=>array(
+				'field'=>'input',
+				'name'=>'prenom',
+				'obligatoire'=>'oui',
+				'label'=>_T('concours:prenom'),
+				),			
+			),
+		'nom'=>array(
+			'valeur'=>$valeurs['nom'],		
+			'fieldset'=>0,
+			'rang'=>250,
+			'form'=>array(
+				'field'=>'input',
+				'name'=>'nom',
+				'obligatoire'=>'oui',
+				'label'=>_T('info_nom'),
+				),
+			),	
+		'date_naissance'=>array(
+			'valeur'=>'',		
+			'fieldset'=>0,
+			'rang'=>350,
+			'form'=>array(
+					'field'=>'date',
+					'name'=>'date_naissance',
+					'obligatoire'=>'oui',
+					'label'=>_T('concours:date_naissance'),	
+					'explication'=>_T('concours:explication_date_naissance'),	
+				),					
+			),			
+		'rue'=>array(
+			'valeur'=>$valeurs['rue'],		
+			'fieldset'=>1,	
+			'rang'=>50,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'rue',
+					'obligatoire'=>'oui',
+					'label'=>_T('concours:rue'),	
+				),								
+			),	
+		'numero'=>array(
+			'valeur'=>$valeurs['numero'],		
+			'fieldset'=>1,	
+			'rang'=>150,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'numero',
+					'obligatoire'=>'oui',					
+					'label'=>_T('concours:numero'),					
+				),								
+			),	
+		'boite'=>array(
+			'valeur'=>$valeurs['boite'],		
+			'fieldset'=>1,	
+			'rang'=>250,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'boite',
+					'label'=>_T('concours:boite'),	
+				),								
+			),	
+// 		'pays'=>array(
+// 			'valeur'=>$valeurs['pays'],		
+// 			'fieldset'=>0,	
+// 			'rang'=>370,	
+// 			'form'=>array(
+// 					'field'=>'radio',
+// 					'name'=>'pays',
+// 					'label'=>_T('concours:pays'),	
+// 					'obligatoire'=>'oui',
+// 					'datas'=>array(
+// 						'be'=>_T('concours:belgique'),	
+// 						'lu'=>_T('concours:luxembourg'),							
+// 					)
+// 				),								
+// 			),	
+			
+		'code_postal'=>array(
+			'valeur'=>$valeurs['code_postal'],		
+			'fieldset'=>1,	
+			'rang'=>350,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'code_postal',
+					'obligatoire'=>'oui',
+					'label'=>_T('concours:code_postal'),	
+				),								
+			),							
+		'localite'=>array(
+			'valeur'=>$valeurs['localite'],		
+			'fieldset'=>1,	
+			'rang'=>360,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'localite',
+					'obligatoire'=>'oui',
+					'label'=>_T('concours:localite'),	
+				),								
+			),							
+			
+// 		'lang'=>array(
+// 			'valeur'=>$valeurs['lang'],	
+// 			'fieldset'=>2,	
+// 			'rang'=>50,	
+// 			'form'=>array(
+// 					'field'=>'hidden',
+// 					'name'=>'lang',
+// 					'obligatoire'=>'oui',
+// 					'label'=>_T('concours:langue'),
+// 					//'disable'=>'oui',	
+// 					'defaut'=>$valeurs['lang'],
+// 					'datas'=>array(
+// 						'fr'=>traduire_nom_langue('fr'),
+// 						'nl'=>traduire_nom_langue('nl'),						
+// 						)						
+// 				),								
+// 			),
+		'email'=>array(
+			'valeur'=>$valeurs['email'],	
+			'fieldset'=>2,	
+			'rang'=>150,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'email',
+					'obligatoire'=>'oui',
+					'label'=>_T('concours:email'),					
+				),								
+			),
+		'confirmer_email'=>array(
+			'valeur'=>$valeurs['confirmer_email'],	
+			'fieldset'=>2,	
+			'rang'=>200,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'confirmer_email',
+					'obligatoire'=>'oui',
+					'label'=>_T('concours:confirmer_email'),
+					'explication'=>_T('concours:explication_email'),				
+				),								
+			),			
+		'telephone'=>array(
+			'valeur'=>$valeurs['telephone'],	
+			'fieldset'=>2,	
+			'rang'=>250,	
+			'form'=>array(
+					'field'=>'telephone',
+					'name'=>'telephone',
+					'obligatoire'=>'oui',
+					'label'=>_T('concours:telephone'),					
+				),								
+			),						
+		'reponse_1'=>array(
+			'valeur'=>$valeurs['question_1'],	
+			'fieldset'=>3,	
+			'rang'=>50,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'reponse_1',
+					'obligatoire'=>'oui',					
+					'label'=>lire_config('concours/question/1'),					
+				),								
+			),									
+// 		'question_2'=>array(
+// 			'valeur'=>$valeurs['question_2'],	
+// 			'fieldset'=>4,	
+// 			'rang'=>50,	
+// 			'form'=>array(
+// 					'field'=>'radio',
+// 					'name'=>'question_2',
+// 					'obligatoire'=>'oui',					
+// 					'label'=>_T('concours:question_2'),	
+// 					'datas'=>array(
+// 						'60'=>_T('concours:reponse_60'),
+// 						'100'=>_T('concours:reponse_100'),
+// 						'120'=>_T('concours:reponse_120'),										
+// 						)				
+// 				),								
+// 			),
+// 		'question_3'=>array(
+// 			'valeur'=>$valeurs['question_3'],	
+// 			'fieldset'=>5,	
+// 			'rang'=>50,	
+// 			'form'=>array(
+// 					'field'=>'input_3',
+// 					'name'=>'question_3',
+// 					'obligatoire'=>'oui',				
+// 					'label'=>_T('concours:question_3'),
+// 					'datas'=>array(
+// 						'minutes'=>_T('concours:reponse_minutes'),
+// 						'secondes'=>_T('concours:reponse_secondes'),
+// 						'centieme_secondes'=>_T('concours:reponse_centiemes_secondes'),										
+// 						)
+// 				),								
+// 			),
+/*		'code'=>array(
+			'valeur'=>$valeurs['code'],	
+			'fieldset'=>6,	
+			'rang'=>50,	
+			'form'=>array(
+					'field'=>'input',
+					'name'=>'code',
+					'obligatoire'=>'oui',					
+					'label'=>_T('concours:code'),
+				),								
+			),	*/		
+			
+// 		'conditions_ok'=>array(
+// 			'valeur'=>$valeurs['conditions_ok'],	
+// 			'fieldset'=>6,	
+// 			'rang'=>150,	
+// 			'form'=>array(
+// 					'field'=>'case',
+// 					'name'=>'conditions_ok',
+// 					'obligatoire'=>'oui',					
+// 					'label'=>_T('concours:conditions_ok'),
+// 					'explication'=>'<a href="'.$valeurs['url_conditions'].'"><img src="'.find_in_path('prive/vignettes/defaut.png').'" alt="'._T('concours:conditions_ok').'"/></a>',	
+// 				),								
+// 			),
+		'opt_out'=>array(
+			'valeur'=>$valeurs['opt_out'],	
+			'fieldset'=>6,	
+			'rang'=>250,	
+			'form'=>array(
+					'field'=>'case',
+					'name'=>'opt_out',				
+					'label'=>_T('concours:opt_out'),	
+				),								
+			),																										
+		);
+	
+	switch($use){
+		case 'charger':
+		//Préparation de l'array qui sert à construire le formulaire
+		$formulaire=array();
+			
+		foreach ($champs AS $champ =>$valeur){
+			$formulaire[$valeur['fieldset']][$valeur['rang']]=$valeur;
+			}	
+		
+		$valeurs=array(
+			'valeurs'=>$champs,
+			'formulaire'=>$formulaire,
+			'fieldsets'=>$fieldsets
+			);		
+		break;
+		//Préparation de l'array qui sert pour les vérifications
+		case 'verifier' :
+		
+		$obligatoire=array();
+		
+		foreach ($champs AS $champ =>$valeur){
+			if($valeur['form']['obligatoire']=='oui'){
+				$obligatoire[$champ]=$valeur['fieldset'];
+			}
+			$valeurs=array(
+				'obligatoire'=>$obligatoire,
+				'fieldsets'=>$fieldsets
+				);	
+			
+			}
+		break;
+		default:	$valeurs=$champs;
+		}
+	
+	return $valeurs;
+}
+
+function formulaires_concours_charger_dist(){
+
+	//On charge les définitions
+	
+	// Si l'id projet est connu, on charge les données
+
+	$val=array();
+
+	$val['lang']=_request('lang');
+	
+	
+	$definitions=definitions($use='charger',$val);
+	
+	//On définit les valeurs du formulaire
+	$valeurs=$definitions['valeurs'];
+	
+	foreach($valeurs AS $key=>$champs){
+		$valeurs[$key]=$valeurs[$key]['valeur'];
+		if(_request($key))$valeurs['_hidden'].='<input type="hidden" name="'.$key.'" value="'._request($key).'"/>';
+	}
+	
+	//Phase par défaut
+
+	$valeurs['phase']=$phase=(_request('phase')?_request('phase'):1);
+	
+
+	
+	//Le valeurs pour la construction du formulaire
+	$valeurs['formulaire']=$definitions['formulaire'];
+	
+	// Les fieldsets
+	$valeurs['fieldsets']=$definitions['fieldsets'];	
+	
+return $valeurs;
+}
+
+function formulaires_concours_verifier_dist(){
+
+	/*$obligatoire=array('code','conditions_ok');*/
+	if($phase=_request('phase')!=1){
+		$definitions=definitions('verifier');
+		
+		$obligatoire =$definitions['obligatoire'];
+		$fieldsets =$definitions['fieldsets'];
+		$phase=_request('phase');
+		
+		$erreurs = array();
+		
+		foreach($obligatoire as $champ=>$p){
+			if($fieldsets[$p]['phase']==$phase AND !_request($champ))$erreurs[$champ] =_T('spip:info_obligatoire').$phase  ;
+			}
+	
+		// On continue seulement si ya pas d'erreur d'obligation et qu'il y a une demande de verif
+			
+		$verif_fonction = charger_fonction('verifier','inc',false);
+		$specifiques=array('date_naissance'=>'date','email'=>'email');
+			    
+		foreach($specifiques AS $champ=>$type){
+				if (_request($champ)){
+					$erreur_eventuelle ='';
+					// Si le champ n'est pas valide par rapport au test demandé, on ajoute l'erreur
+					if ($erreur_eventuelle = $verif_fonction(_request($champ),$type))$erreurs[$champ] = $erreur_eventuelle;
+				}
+		}	    
+		
+		
+		if($phase!=1){
+			//Vérification d'au moins un tél fixe ou gsm
+			if(_request('confirmer_email') AND _request('confirmer_email') !=_request('email')) $erreurs['confirmer_email'] = _T('concours:erreur_email_identique');
+			//Vérification d'au moins un champ de la question3
+			if(is_array(_request('question_3'))){
+				if(array_sum(_request('question_3'))==0)$erreurs['question_3'] = _T('spip:info_obligatoire');
+				}
+			}
+		
+		//Vérification du code
+		
+		/*if($code = trim( _request('code'))){
+			$verification_code = sql_fetsel('id_code,utilise','spip_concours_codes','code LIKE '.sql_quote($code));
+			if (!$verification_code['id_code'])$erreurs['code'] = _T('concours:erreur_code_inexistant');
+			elseif($verification_code['utilise'])$erreurs['code'] = _T('concours:erreur_code_utilise');
+			}*/
+		
+				
+	    if (count($erreurs)) {
+			$erreurs['message_erreur'] = _T('spip:avis_erreur');
+		    }
+	    }
+return $erreurs;
+}
+
+function formulaires_concours_traiter_dist($id_projet=''){
+
+	$phase=_request('phase');
+
+	// Première phase on renvoie vers la deuxième phase
+	if($phase!=3) return array('message_ok'=>$phase+1,'editable'=>true);
+	// Troisième phase on enregistre
+	else{
+	
+		//Préparation des valeurs générales
+		$champs=definitions();
+		$valeurs=array();
+		//$code = trim( _request('code'));	
+		
+		foreach($champs as $key=>$val){
+				if($key!='confirmer_email')$valeurs[$key]=_request($key);
+			}
+			
+		
+		//Préparation des valeursspécifiques
+		$date_naissance = preg_replace("#\.|/| #i",'-',$valeurs['date_naissance']);
+		$date_naissance_explode = explode('-',$date_naissance);
+		$valeurs['date_naissance']= $date_naissance_explode[2].'-'.$date_naissance_explode[1].'-'.$date_naissance_explode[0];
+		
+		/*$question_3=_request('question_3');
+
+		$temps=array(
+	 		'minutes'=>$question_3['minutes']*60,
+			'secondes'=>$question_3['secondes'],
+			'centieme_secondes'=>$question_3['centieme_secondes']/100
+			);*/
+		
+		/*$valeurs['question_3'] = array_sum($temps);*/
+	
+		// Effectuer des traitements
+		
+		$id_reponse=sql_insertq('spip_concours_reponses',$valeurs);
+		
+		//$id_projet=sql_updateq('spip_concours_codes',array('utilise'=>1),'code='.sql_quote($code));
+		
+		return array('message_ok'=>lire_config('concours/texte_confirmation'));
+	}
+    
+}
+?>

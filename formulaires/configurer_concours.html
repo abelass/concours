@@ -1,0 +1,63 @@
+<!-- nom=concours -->
+
+<div class="formulaire_spip formulaire_#FORM">
+
+	[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+	[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+
+	<form action="#ENV{action}" method="post"><div>
+		#ACTION_FORMULAIRE{#ENV{action}}
+		<ul>
+<li class="fieldset">
+				<fieldset><legend><:concours:reponses_corectes:></legend>
+				<ul>
+					#SET{erreurs,#ENV**{erreurs}|table_valeur{texte_landing_page}}
+					<li class="editer_cfg_concours[ (#GET{erreurs}|oui)erreur]">
+						[<span class='erreur_message'>(#GET{erreurs})</span>]
+						<div  class="input">
+							<label for='q_valeur_bon'><:concours:texte_landing_page:></label>						
+							<textarea class="texte_landing_page" id="texte_landing_page" name="texte_landing_page" >#ENV{texte_landing_page}</textarea>
+						</div>
+					</li>
+					#SET{erreurs,#ENV**{erreurs}|table_valeur{texte_confirmation}}
+					<li class="editer_cfg_concours[ (#GET{erreurs}|oui)erreur]">
+						[<span class='erreur_message'>(#GET{erreurs})</span>]
+						<div  class="input">
+							<label for='q_valeur_bon'><:concours:texte_confirmation:></label>						
+							<textarea class="texte_confirmation" id="texte_confirmation" name="texte_confirmation" >#ENV{texte_confirmation}</textarea>
+						</div>
+					</li>				
+				</fieldset>
+			</li>		
+		
+		
+			<li class="fieldset">
+				<fieldset><legend><:concours:reponses_corectes:></legend>
+				<ul>
+					#SET{erreurs,#ENV**{erreurs}|table_valeur{question}}
+					<li class="editer_cfg_concours[ (#GET{erreurs}|oui)erreur]">
+						[<span class='erreur_message'>(#GET{erreurs})</span>]
+						<div  class="input">
+							<label for='q_valeur_bon'><:concours:question:></label>						
+							<input type="text" class="question" id="question" name="question[1]" value="[(#ENV{question}|table_valeur{1})]">
+						</div>
+					</li>	
+					#SET{erreurs,#ENV**{erreurs}|table_valeur{reponses}}
+					<li class="editer_cfg_concours[ (#GET{erreurs}|oui)erreur]">
+						[<span class='erreur_message'>(#GET{erreurs})</span>]
+						<div  class="input">
+							<label for='q_valeur_bon'><:concours:reponses:></label>						
+							<input type="text" class="reponses" id="reponses" name="reponses[1]" value="[(#ENV{reponses}|table_valeur{1})]">
+						</div>
+					</li>		
+				</fieldset>
+			</li>
+		</ul>
+		
+		<p class="boutons">
+			<input type="submit" name="_cfg_ok" class="submit" value="<:cfg:ok:>" />
+			<input type="submit" name="_cfg_delete" class="submit" value="<:cfg:effacer:>" />
+		</p>
+		
+	</div></form>
+</div>

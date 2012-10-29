@@ -1,0 +1,15 @@
+<!DOCTYPE webprojectsession>
+<webprojectsession>
+  <session usePreviewPrefix="0" previewPrefix="" >
+    <itemcursorpositions>
+      <item column="23" line="24" url="concours.html" />
+      <item column="20" line="0" url="modeles/concours.html" />
+      <item column="36" line="10" url="action/export_reponses.php" />
+      <item column="2" line="44" url="inc/trie_reponses.php" />
+      <item column="36" line="38" url="exec/concours.php" />
+      <item column="53" line="34" url="lang/concours_fr.php" />
+      <item column="38" line="20" url="plugin.xml" />
+      <item column="47" line="23" url="prive/concours.html" />
+    </itemcursorpositions>
+  </session>
+</webprojectsession>
